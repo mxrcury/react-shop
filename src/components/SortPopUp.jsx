@@ -8,13 +8,13 @@ const SortPopUp = React.memo(({sortList,activeSortType,onSelectSortType}) => {
   
   const popUpRef = useRef();
 
-  const activeLabel = sortList.find(obj=>obj.type===activeSortType)
+  const activeLabel = sortList.find(obj=>obj.type===activeSortType.type)
 
   const togglePopUp = () => {
     setPopUpOn(!isPopUpOn);
   };
-  const onSelectType = (type)=>{
-    onSelectSortType(type)
+  const onSelectType = (obj)=>{
+    onSelectSortType(obj)
     setPopUpOn(false)
   }
 
@@ -46,7 +46,7 @@ const SortPopUp = React.memo(({sortList,activeSortType,onSelectSortType}) => {
           />
         </svg>
         <b>Sort by:</b>
-        <span onClick={togglePopUp}>{activeLabel.type === activeSortType && activeLabel.name}</span>
+        <span onClick={togglePopUp}>{activeLabel.type === activeSortType.type && activeLabel.name}</span>
       </div>
       {isPopUpOn && (
         <div className="sort__popup">
@@ -54,8 +54,8 @@ const SortPopUp = React.memo(({sortList,activeSortType,onSelectSortType}) => {
             {sortList.map((obj, index) => (
               <li
               key={index}
-                onClick={() =>onSelectType(obj.type)}
-                className={activeSortType === obj.type ? "active" : null}
+                onClick={() =>onSelectType(obj)}
+                className={activeSortType.type === obj.type ? "active" : null}
               >
                 {obj.name}
               </li>

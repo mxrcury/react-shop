@@ -3,14 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   sortBy: "",
   activeCategorie:0,
-  activeSortType:'rating'
+  activeSortType:{type:'rating',order:'desc'}
 };
 
 const filtersSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    sortBy(state, action) {},
     setCategorie(state,action){
         state.activeCategorie = action.payload
     },

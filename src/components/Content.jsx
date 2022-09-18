@@ -8,8 +8,9 @@ import { useSelector } from 'react-redux';
 import { getItems } from "../redux/productsSlice";
 
 const Content = () => {
-
-  const sortList = [{name:'Popular',type:'rating'},{name:"Price",type:'price'},{name:"from A-Z",type:'name'}]
+  // Зробити сортування по алфавіту з A-Z, добавивши властивість order,виставивши у всіх по спаданню(desc), 
+  // а за алфавітом по зростанню
+  const sortList = [{name:'Popular',type:'rating',order:'desc'},{name:"Price",type:'price',order:'desc'},{name:"from A-Z",type:'name',order:'asc'}]
   
   const dispatch = useDispatch()
   const {activeCategorie,activeSortType,items,isLoading} = useSelector(({filters,products})=>{
@@ -28,8 +29,8 @@ const Content = () => {
     dispatch(setCategorie(index))
   },[])
 
-  const onSelectSortType = useCallback(type=>{
-    dispatch(setSortType(type))
+  const onSelectSortType = useCallback(obj=>{
+    dispatch(setSortType(obj))
   },[])
   
   return (
