@@ -24,8 +24,8 @@ export const {setItems,toggleLoading} = productsSlice.actions
 export const productsReducer = productsSlice.reducer
 
 
-export const getItems = ()=>dispatch=>{
-    getItemsReq().then(response =>{
+export const getItems = (category,sortType)=>dispatch=>{
+    getItemsReq(category,sortType).then(response =>{
         dispatch(toggleLoading(true))
         dispatch(setItems(response.data))
         dispatch(toggleLoading(false))

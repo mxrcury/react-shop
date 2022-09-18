@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 import Loader from './Loader';
 import { useSelector } from 'react-redux';
 
-const ShopItem = ({imageUrl,name,types,sizes,prices}) => {
+const ShopItem = ({imageUrl,name,types,sizes,price}) => {
   const availableTypes = ['Classic', 'Pro']
   const availableSizes = [64, 128, 256]
   const [activeType, setActiveType] = useState(types[0])
@@ -40,7 +40,7 @@ const ShopItem = ({imageUrl,name,types,sizes,prices}) => {
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">from {prices}$</div>
+        <div className="pizza-block__price">from {price}$</div>
         <div className="button button--outline button--add">
           <svg
             width="12"

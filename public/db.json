@@ -6,8 +6,8 @@
             "name":"iPhone 14",
             "types":[0,1],
             "sizes":[64,128,256],
-            "prices":609,
-            "category":0,
+            "price":609,
+            "category":1,
             "rating":4
         },
         {"id":1,
@@ -15,8 +15,8 @@
             "name":"iPhone 13",
             "types":[0,1],
             "sizes":[64,128,256],
-            "prices":609,
-            "category":0,
+            "price":609,
+            "category":1,
             "rating":2
         },
         {"id":2,
@@ -24,8 +24,8 @@
             "name":"iPhone SE",
             "types":[0],
             "sizes":[64,128,256],
-            "prices":409,
-            "category":0,
+            "price":409,
+            "category":1,
             "rating":8
         },
         {"id":3,
@@ -33,8 +33,8 @@
             "name":"iPhone 11",
             "types":[0,1],
             "sizes":[64,128,256],
-            "prices":609,
-            "category":0,
+            "price":609,
+            "category":1,
             "rating":7
         },
         {"id":4,
@@ -42,8 +42,8 @@
             "name":"MacBook",
             "types":[1],
             "sizes":[64,128,256],
-            "prices":1609,
-            "category":0,
+            "price":1609,
+            "category":3,
             "rating":1
         },
         {"id":5,
@@ -51,8 +51,8 @@
             "name":"iMac",
             "types":[0,1],
             "sizes":[64,128,256],
-            "prices":709,
-            "category":0,
+            "price":709,
+            "category":2,
             "rating":3
         },
         {"id":6,
@@ -60,16 +60,16 @@
             "name":"AirPods",
             "types":[0,1],
             "sizes":[64,128,256],
-            "prices":609,
-            "category":0,
+            "price":609,
+            "category":5,
             "rating":6
         },       {"id":7, 
             "imageUrl":"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn2.iconfinder.com%2Fdata%2Ficons%2Fapple-tv-1%2F512%2Fapple_tv_old-512.png&f=1&nofb=1",
             "name":"AppleTV",
             "types":[0],
             "sizes":[64,128,256],
-            "prices":449,
-            "category":0,
+            "price":449,
+            "category":4,
             "rating":9
         }
 

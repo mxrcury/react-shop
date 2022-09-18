@@ -1,14 +1,15 @@
-import React,{useCallback} from "react";
+import React,{useCallback,useEffect} from "react";
 import ShopItems from './ShopItems';
 import Categories from './Categories';
 import SortPopUp from './SortPopUp';
 import { setCategorie,setSortType } from "../redux/filtersSlice";
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { getItems } from "../redux/productsSlice";
 
 const Content = () => {
 
-  const sortList = [{name:'Popular',type:'popular'},{name:"Price",type:'price'},{name:"from A-Z",type:'alphabet'}]
+  const sortList = [{name:'Popular',type:'rating'},{name:"Price",type:'price'},{name:"from A-Z",type:'name'}]
   
   const dispatch = useDispatch()
   const {activeCategorie,activeSortType,items,isLoading} = useSelector(({filters,products})=>{
@@ -19,8 +20,10 @@ const Content = () => {
       isLoading:products.isLoading,
     }
   })
+  useEffect(()=>{
+    dispatch(getItems(activeCategorie,activeSortType))
+  },[activeCategorie,activeSortType])
 
-  
   const onSelectCategorie = useCallback((index) => {
     dispatch(setCategorie(index))
   },[])

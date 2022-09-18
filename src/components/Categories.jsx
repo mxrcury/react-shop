@@ -10,7 +10,7 @@ const Categories = React.memo(({active,handleClick}) => {
     'Iphone',
     'iMac',
     'MacBook',
-    'AppleWatch',
+    'AppleTV',
     'AirPods'
   ]
 

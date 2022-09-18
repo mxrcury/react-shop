@@ -74,7 +74,6 @@ SortPopUp.propTypes={
 }
 
 SortPopUp.defaultProps={
-  activeSortType:'popular',
   sortList:[]
 }
 
