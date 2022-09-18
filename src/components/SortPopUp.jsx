@@ -1,24 +1,27 @@
 import React from "react";
 import { useRef } from "react";
 import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 
-const SortPopUp = React.memo(() => {
+const SortPopUp = React.memo(({sortList,activeSortType,onSelectSortType}) => {
   const [isPopUpOn, setPopUpOn] = useState(false);
-  const [active, setActive] = useState(0);
-  const [sortList, setSortList] = useState(['Popular',"Price", "from A-Z"]);
+  
   const popUpRef = useRef();
-  const activeLabel = sortList[active]
+
+  const activeLabel = sortList.find(obj=>obj.type===activeSortType)
 
   const togglePopUp = () => {
     setPopUpOn(!isPopUpOn);
   };
+  const onSelectType = (type)=>{
+    onSelectSortType(type)
+    setPopUpOn(false)
+  }
+
+
   const handleOutsideClick = (e) => {
     !e.path.includes(popUpRef.current) && setPopUpOn(false);
   };
-  const onSelectItem = (index)=>{
-    setActive(index)
-    setPopUpOn(false)
-  }
   useEffect(() => {
     document.body.addEventListener("click", handleOutsideClick);
     return () => {
@@ -43,18 +46,18 @@ const SortPopUp = React.memo(() => {
           />
         </svg>
         <b>Sort by:</b>
-        <span onClick={togglePopUp}>{active === null ? sortList[0] : activeLabel}</span>
+        <span onClick={togglePopUp}>{activeLabel.type === activeSortType && activeLabel.name}</span>
       </div>
       {isPopUpOn && (
         <div className="sort__popup">
           <ul>
-            {sortList.map((el, index) => (
+            {sortList.map((obj, index) => (
               <li
               key={index}
-                onClick={() =>onSelectItem(index)}
-                className={active === index ? "active" : null}
+                onClick={() =>onSelectType(obj.type)}
+                className={activeSortType === obj.type ? "active" : null}
               >
-                {el}
+                {obj.name}
               </li>
             ))}
           </ul>
@@ -63,5 +66,17 @@ const SortPopUp = React.memo(() => {
     </div>
   );
 })
+
+SortPopUp.propTypes={
+  sortList:PropTypes.arrayOf(PropTypes.object).isRequired,
+  activeSortType:PropTypes.string.isRequired,
+  onSelectSortType:PropTypes.func.isRequired
+}
+
+SortPopUp.defaultProps={
+  activeSortType:'popular',
+  sortList:[]
+}
+
 
 export default SortPopUp;

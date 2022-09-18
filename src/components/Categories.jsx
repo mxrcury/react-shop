@@ -2,8 +2,9 @@ import React from 'react'
 import { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategorie } from '../redux/filtersSlice';
+import PropTypes from 'prop-types';
 
-const Categories = React.memo(() => {
+const Categories = React.memo(({active,handleClick}) => {
   const categories = [
     'All',
     'Iphone',
@@ -12,13 +13,6 @@ const Categories = React.memo(() => {
     'AppleWatch',
     'AirPods'
   ]
-  const [active, setActive] = useState(0)
-
-  const dispatch = useDispatch()
-  const setActiveCategorie = useCallback((index) => {
-    setActive(index)
-    dispatch(setCategorie({ index }))
-  },[])
 
   return (
     <div className="categories">
@@ -27,11 +21,20 @@ const Categories = React.memo(() => {
         {categories.map((el, index) => 
         <li 
         className={active === index ? 'active' : null} 
-        onClick={() => setActiveCategorie(index)} 
+        onClick={() => handleClick(index)} 
         key={`${el.title}_${index}`} >{el}</li>)}
       </ul>
     </div>
   )
 })
+
+Categories.propTypes={
+  active:PropTypes.number.isRequired,
+  handleClick:PropTypes.func
+}
+
+Categories.defaultProps ={
+  active:0
+}
 
 export default Categories

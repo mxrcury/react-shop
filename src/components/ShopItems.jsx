@@ -3,9 +3,9 @@ import ShopItem from "./ShopItem/ShopItem";
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from "../redux/productsSlice";
 import Loader from "./ShopItem/Loader";
+import PropTypes from 'prop-types';
 
-const ShopItems = (props) => {
-  const { items,isLoading } = useSelector(({products}) => products)
+const ShopItems = ({items,isLoading}) => {
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(getItems())
@@ -19,4 +19,15 @@ const ShopItems = (props) => {
     </>
   );
 };
+
+ShopItems.propTypes={
+  items:PropTypes.arrayOf(PropTypes.object).isRequired,
+  isLoading:PropTypes.bool.isRequired
+}
+ShopItems.defaultProps={
+  items:[],
+  isLoading:false
+}
+
+
 export default ShopItems;
