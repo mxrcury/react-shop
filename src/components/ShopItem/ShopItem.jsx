@@ -2,13 +2,17 @@ import React, { useState } from 'react'
 import classNames from 'classnames'
 import { PropTypes } from 'prop-types';
 import Loader from './Loader';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setFullPrice } from '../../redux/productsSlice';
 
-const ShopItem = ({imageUrl,name,types,sizes,price}) => {
+const ShopItem = ({ imageUrl, name, types, sizes, price, handleAdd }) => {
   const availableTypes = ['Classic', 'Pro']
   const availableSizes = [64, 128, 256]
   const [activeType, setActiveType] = useState(types[0])
   const [activeSize, setActiveSize] = useState(0)
+  const [itemCounter,setItemCounter] = useState(0)
+
+  const dispatch = useDispatch()
 
   const onSelectType = (index) => {
     setActiveType(index)
@@ -41,7 +45,13 @@ const ShopItem = ({imageUrl,name,types,sizes,price}) => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">from {price}$</div>
-        <div className="button button--outline button--add">
+        <div className="button button--outline button--add" 
+          onClick={() => {
+            setItemCounter(prev => prev + 1)
+            dispatch(setFullPrice(price))
+          handleAdd({ imageUrl, price, name,types, sizes,number:itemCounter })
+          }} 
+        >
           <svg
             width="12"
             height="12"
@@ -55,26 +65,26 @@ const ShopItem = ({imageUrl,name,types,sizes,price}) => {
             />
           </svg>
           <span>Add</span>
-          <i>2</i>
+          <i>{itemCounter}</i>
         </div>
       </div>
     </div>
   )
 }
 
-ShopItem.propTypes={
-  name:PropTypes.string,
-  imageUrl:PropTypes.string,
-  types:PropTypes.arrayOf(PropTypes.number).isRequired,
-  sizes:PropTypes.arrayOf(PropTypes.number).isRequired,
-  prices:PropTypes.number
+ShopItem.propTypes = {
+  name: PropTypes.string,
+  imageUrl: PropTypes.string,
+  types: PropTypes.arrayOf(PropTypes.number).isRequired,
+  sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  prices: PropTypes.number
 }
 
 ShopItem.defaultProps = {
-  types:[],
-  sizes:[],
-  name:'No device',
-  price:0
+  types: [],
+  sizes: [],
+  name: 'No device',
+  price: 0
 }
 
 

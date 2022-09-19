@@ -3,7 +3,9 @@ import { getItemsReq } from '../api/apiRequests';
 
 const initialState = {
     items:[],
-    isLoading:true
+    isLoading:true,
+    chosenItems:[],
+    itemsFullPrice:0
 }
 
 export const productsSlice = createSlice({
@@ -15,11 +17,17 @@ export const productsSlice = createSlice({
         },
         toggleLoading(state,action){
             state.isLoading = action.payload
+        },
+        addItem(state,action){
+            state.chosenItems.push(action.payload)
+        },
+        setFullPrice(state,action){
+            state.itemsFullPrice=state.itemsFullPrice + action.payload
         }
     }
-})
+        })
 
-export const {setItems,toggleLoading} = productsSlice.actions
+export const {setItems,toggleLoading,addItem,setFullPrice} = productsSlice.actions
 
 export const productsReducer = productsSlice.reducer
 
