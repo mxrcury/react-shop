@@ -4,28 +4,20 @@ import { getItemsReq } from '../api/apiRequests';
 const initialState = {
     items:[],
     isLoading:true,
-    chosenItems:[],
-    itemsFullPrice:0
 }
 
 export const productsSlice = createSlice({
-    name:'products',
-    initialState,
-    reducers:{
-        setItems(state,action){
-            state.items = action.payload
-        },
-        toggleLoading(state,action){
-            state.isLoading = action.payload
-        },
-        addItem(state,action){
-            state.chosenItems.push(action.payload)
-        },
-        setFullPrice(state,action){
-            state.itemsFullPrice=state.itemsFullPrice + action.payload
-        }
-    }
-        })
+  name: "products",
+  initialState,
+  reducers: {
+    setItems(state, action) {
+      state.items = action.payload;
+    },
+    toggleLoading(state, action) {
+      state.isLoading = action.payload;
+    },
+  },
+});
 
 export const {setItems,toggleLoading,addItem,setFullPrice} = productsSlice.actions
 

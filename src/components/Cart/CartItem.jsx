@@ -1,21 +1,27 @@
 import React from 'react'
 
 const CartItem = (props) => {
-  return (
+  const items = Object.values(props.items)
+  const item = Object.values(props.items)[0]
+  {if(items.length >=1){ 
+    return (
+    <>
     <div className="cart__item">
                 <div className="cart__item-img">
                   <img
                     className="pizza-block__image"
-                    src={props.imageUrl}
-                    alt="Pizza"
+                    src={item.imageUrl}
+                    alt="Device"
                   />
                 </div>
                 <div className="cart__item-info">
-                  <h3>{props.name}</h3>
-                  <p>{`${props.types[0]}, ${props.sizes[0]}`}</p>
+                  <h3>{item.name}</h3>
+                  <p>{`${item.type}, ${item.size}`}</p>
                 </div>
                 <div className="cart__item-count">
-                  <div className="button button--outline button--circle cart__item-count-minus">
+                  <div className="button button--outline button--circle cart__item-count-minus" onClick={()=>{
+                    props.onRemoveItem(item.id)
+                  }}>
                     <svg
                       width="10"
                       height="10"
@@ -33,8 +39,10 @@ const CartItem = (props) => {
                       />
                     </svg>
                   </div>
-                  <b>{props.number}</b>
-                  <div className="button button--outline button--circle cart__item-count-plus">
+                  <b>{items.length}</b>
+                  <div className="button button--outline button--circle cart__item-count-plus" onClick={()=>{
+                    props.onAddItem({item:item})
+                  }}>
                     <svg
                       width="10"
                       height="10"
@@ -54,9 +62,9 @@ const CartItem = (props) => {
                   </div>
                 </div>
                 <div className="cart__item-price">
-                  <b>{props.price}$</b>
+                  {items.reduce((sum,item)=>item.price+sum,0)}
                 </div>
-                <div className="cart__item-remove">
+                <div className="cart__item-remove" onClick={()=>props.onDeleteItems(item.id)}>
                   <div className="button button--outline button--circle">
                     <svg
                       width="10"
@@ -77,7 +85,9 @@ const CartItem = (props) => {
                   </div>
                 </div>
               </div>
-  )
+              </>
+  )}
+}
 }
 
 export default CartItem

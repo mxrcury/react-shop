@@ -3,22 +3,30 @@ import { NavLink } from 'react-router-dom';
 import CartItem from "./CartItem";
 import { useSelector, useDispatch } from 'react-redux';
 import { setFullPrice } from "../../redux/productsSlice";
+import { cleanCart, minusItem, plusItem, removeItemFromCart } from "../../redux/cartSlice";
 
 const Cart = () => {
 
   const dispatch = useDispatch()
-  const { items,itemsFullPrice } = useSelector(({ products }) => {
+  const { items,totalCount,totalPrice } = useSelector(({ cart }) => {
     return{
-      items:products.chosenItems,
-      itemsFullPrice:products.itemsFullPrice
+      items:cart.items,
+      totalCount:cart.totalCount,
+      totalPrice:cart.totalPrice,
     }
   })
-  useEffect(()=>{
-    items.forEach((el,i) => {
-      dispatch(setFullPrice(el.price))
-    });
-  },[])
-  console.log(items)
+  const onAddItem = (item)=>{
+    dispatch(plusItem(item))
+  }
+  const onRemoveItem = (id)=>{
+    dispatch(minusItem(id))
+  }
+  const onDeleteItems=(id)=>{
+    dispatch(removeItemFromCart(id))
+  }
+  const onCleanCart = ()=>{
+    dispatch(cleanCart())
+  }
 
   return (
     <div className="wrapper">
@@ -58,7 +66,7 @@ const Cart = () => {
                 </svg>
                 Cart
               </h2>
-              <div className="cart__clear">
+              <div className="cart__clear" onClick={onCleanCart}>
                 <svg
                   width="20"
                   height="20"
@@ -100,17 +108,17 @@ const Cart = () => {
               </div>
             </div>
             <div className="content__items">
-              {items.map(item=><CartItem {...item} />)}
+              { Object.values(items).map((item,i)=><CartItem key={i} onAddItem={onAddItem} onRemoveItem={onRemoveItem} onDeleteItems={onDeleteItems} items={item} />)}
               </div>
             <div className="cart__bottom">
               <div className="cart__bottom-details">
                 <span>
                   {" "}
-                  All devices: <b>{items.length}</b>{" "}
+                  All devices: <b>{totalCount}</b>{" "}
                 </span>
                 <span>
                   {" "}
-                  Full price: <b>{itemsFullPrice}$</b>{" "}
+                  Full price: <b>{totalPrice}$</b>{" "}
                 </span>
               </div>
               <div className="cart__bottom-buttons">

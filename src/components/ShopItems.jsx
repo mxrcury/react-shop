@@ -3,19 +3,19 @@ import ShopItem from "./ShopItem/ShopItem";
 import { useDispatch } from 'react-redux';
 import Loader from "./ShopItem/Loader";
 import PropTypes from 'prop-types';
-import { addItem } from "../redux/productsSlice";
+import { addItemToCart } from "../redux/cartSlice";
 
-const ShopItems = ({items,isLoading}) => {
+const ShopItems = ({items,inCartItems,isLoading}) => {
   const dispatch = useDispatch()
-  const onAddItem =(item)=>{
-    dispatch(addItem(item))
+  const onAddItemToCart =(item)=>{
+    dispatch(addItemToCart(item))
   }
 
   return (
     <>
       <div className="content__items">
         {isLoading && Array(10).fill(0).map((_,index)=><Loader key={index} />)}
-        {items.map((el, index) => (<ShopItem key={`${el.name}_${index}`} {...el} handleAdd={onAddItem}/>))}
+        {items.map((el, index) => (<ShopItem key={`${el.name}_${index}`} {...el} inCartItem={inCartItems[el.id]} handleAddToCart={onAddItemToCart}/>))}
       </div>
     </>
   );
@@ -23,11 +23,13 @@ const ShopItems = ({items,isLoading}) => {
 
 ShopItems.propTypes={
   items:PropTypes.arrayOf(PropTypes.object).isRequired,
-  isLoading:PropTypes.bool.isRequired
+  isLoading:PropTypes.bool.isRequired,
+  // inCartItems:PropTypes.object.isRequired
 }
 ShopItems.defaultProps={
   items:[],
-  isLoading:false
+  isLoading:false,
+  inCartItems:{}
 }
 
 

@@ -13,14 +13,16 @@ const Content = () => {
   const sortList = [{name:'Popular',type:'rating',order:'desc'},{name:"Price",type:'price',order:'desc'},{name:"from A-Z",type:'name',order:'asc'}]
   
   const dispatch = useDispatch()
-  const {activeCategorie,activeSortType,items,isLoading} = useSelector(({filters,products})=>{
+  const {activeCategorie,activeSortType,items,isLoading,inCartItems} = useSelector(({filters,products,cart})=>{
     return{
       activeCategorie:filters.activeCategorie,
       activeSortType:filters.activeSortType,
       items:products.items,
       isLoading:products.isLoading,
+      inCartItems:cart.items
     }
   })
+
   useEffect(()=>{
     dispatch(getItems(activeCategorie,activeSortType))
   },[activeCategorie,activeSortType])
@@ -41,7 +43,7 @@ const Content = () => {
           <SortPopUp sortList={sortList} onSelectSortType={onSelectSortType} activeSortType={activeSortType} />
         </div>
         <h2 className="content__title">All devices</h2>
-        <ShopItems items={items} isLoading={isLoading} />
+        <ShopItems items={items} inCartItems={inCartItems} isLoading={isLoading} />
       </div>
     </div>
   );

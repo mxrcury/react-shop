@@ -3,16 +3,13 @@ import classNames from 'classnames'
 import { PropTypes } from 'prop-types';
 import Loader from './Loader';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFullPrice } from '../../redux/productsSlice';
 
-const ShopItem = ({ imageUrl, name, types, sizes, price, handleAdd }) => {
+const ShopItem = ({ imageUrl, name, types, sizes, price, handleAddToCart,id,inCartItem }) => {
   const availableTypes = ['Classic', 'Pro']
   const availableSizes = [64, 128, 256]
   const [activeType, setActiveType] = useState(types[0])
   const [activeSize, setActiveSize] = useState(0)
-  const [itemCounter,setItemCounter] = useState(0)
-
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   const onSelectType = (index) => {
     setActiveType(index)
@@ -47,9 +44,7 @@ const ShopItem = ({ imageUrl, name, types, sizes, price, handleAdd }) => {
         <div className="pizza-block__price">from {price}$</div>
         <div className="button button--outline button--add" 
           onClick={() => {
-            setItemCounter(prev => prev + 1)
-            dispatch(setFullPrice(price))
-          handleAdd({ imageUrl, price, name,types, sizes,number:itemCounter })
+            handleAddToCart({ id, imageUrl, price, name, type: availableTypes[activeType], size: availableSizes[activeSize] })
           }} 
         >
           <svg
@@ -65,7 +60,7 @@ const ShopItem = ({ imageUrl, name, types, sizes, price, handleAdd }) => {
             />
           </svg>
           <span>Add</span>
-          <i>{itemCounter}</i>
+          {inCartItem && inCartItem.length >= 1 && <i>{inCartItem.length}</i>}
         </div>
       </div>
     </div>
@@ -77,7 +72,8 @@ ShopItem.propTypes = {
   imageUrl: PropTypes.string,
   types: PropTypes.arrayOf(PropTypes.number).isRequired,
   sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
-  prices: PropTypes.number
+  prices: PropTypes.number,
+  inCartItem:PropTypes.arrayOf(PropTypes.object)
 }
 
 ShopItem.defaultProps = {
