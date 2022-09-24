@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavLink } from 'react-router-dom';
 import CartItem from "./CartItem";
 import { useSelector, useDispatch } from 'react-redux';
-import { setFullPrice } from "../../redux/productsSlice";
 import { cleanCart, minusItem, plusItem, removeItemFromCart } from "../../redux/cartSlice";
 import EmptyCart from "./EmptyCart";
 
