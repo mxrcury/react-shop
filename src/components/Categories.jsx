@@ -1,7 +1,4 @@
 import React from 'react'
-import { useState, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setCategorie } from '../redux/filtersSlice';
 import PropTypes from 'prop-types';
 
 const Categories = React.memo(({active,handleClick}) => {

@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import classNames from 'classnames'
 import { PropTypes } from 'prop-types';
-import Loader from './Loader';
-import { useSelector, useDispatch } from 'react-redux';
 
 const ShopItem = ({ imageUrl, name, types, sizes, price, handleAddToCart,id,inCartItem }) => {
   const availableTypes = ['Classic', 'Pro']
